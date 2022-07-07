@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'App Muvete',
+      title: 'App Muevete',
       debugShowCheckedModeBanner: false,
       theme: _themeData(),
       home: Intro(),
