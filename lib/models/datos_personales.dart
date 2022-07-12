@@ -14,4 +14,9 @@ class DatosPersonales {
         List<Academic>.from(
             json["datos"]["inf_alumno"].map((x) => Academic.fromJson(x))),
       );
+
+  toJson() => {
+        "inf_persona": inf_persona.toJson(),
+        "inf_alumno": List<dynamic>.from(inf_alumno.map((x) => x?.toJson())),
+      };
 }

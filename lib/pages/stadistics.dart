@@ -1,6 +1,7 @@
 import 'package:app_muevete/models/health_stats.dart';
 import 'package:app_muevete/pages/home.dart';
 import 'package:app_muevete/pages/welcome.dart';
+import 'package:app_muevete/services/stadistics_service.dart';
 import 'package:app_muevete/utils/tema.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +18,7 @@ class _StadistcsState extends State<Stadistcs> {
   final _estaturaController = TextEditingController(text: '');
   final _pesoController = TextEditingController(text: '');
   final _perimetroController = TextEditingController(text: '');
+  final _stadisticService = StadisticsService();
   String _sexo = '';
   HealthStats? _health_stats;
   int _age = 0;
@@ -221,6 +223,13 @@ class _StadistcsState extends State<Stadistcs> {
         if (_imc != 0 && _riesgo != 0) {
           final prefs = await SharedPreferences.getInstance();
           prefs.setDouble('actual_weigth', _weight);
+          _stadisticService.submitStadistics( {
+            'edad': _age,
+            'estatura': _height,
+            'peso': _weight,
+            'perimetro': _perimeter,
+          });
+
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Welcome()),

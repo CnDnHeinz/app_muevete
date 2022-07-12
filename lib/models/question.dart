@@ -12,4 +12,11 @@ class Question {
         json["question"],
         List<Option>.from(json["options"].map((x) => Option.fromJson(x))),
       ); */
+
+  toJson() => {
+        "id": id,
+        "question": question,
+        "options": List<dynamic>.from(options.map((x) => x.toJson())),
+        "multiple": multiple,
+      };
 }

@@ -29,4 +29,15 @@ class Persona {
         json["Telefono"] ?? '',
         json["Id_Sexo"] ?? '',
       );
+
+  toJson() => {
+        "Codigo": codigo,
+        "DNI": dni,
+        "Paterno": paterno,
+        "Materno": materno,
+        "Nombres": nombres,
+        "E_Mail": email,
+        "Telefono": telefono,
+        "Id_Sexo": id_sexo,
+      };
 }

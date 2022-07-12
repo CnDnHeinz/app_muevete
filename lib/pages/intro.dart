@@ -1,23 +1,36 @@
+import 'package:app_muevete/pages/home.dart';
 import 'package:app_muevete/pages/profile.dart';
+import 'package:app_muevete/pages/stadistics.dart';
 import 'package:app_muevete/pages/welcome.dart';
 import 'package:app_muevete/utils/tema.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Intro extends StatelessWidget {
   const Intro({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     Widget _btnContinuar(String text) {
       return ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
+          final prefs = await SharedPreferences.getInstance();
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Profile()),
+            MaterialPageRoute(builder: (context) {
+              if (prefs.getInt('id_usuario') == null) {
+                return Profile();
+              } else if (prefs.getBool('estadisticas') == null) {
+                return Stadistcs();
+              } else if (prefs.getBool('encuesta1') == null) {
+                return Welcome();
+              } else {
+                return Home();
+              }
+            }),
           );
         },
         style: TextButton.styleFrom(

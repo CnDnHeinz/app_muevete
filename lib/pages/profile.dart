@@ -15,6 +15,7 @@ class _ProfileState extends State<Profile> {
   final myController = TextEditingController();
   final dp_service = DatosPersonalesService();
   bool _findUser = false;
+  DatosPersonales? _datosPersonales;
 
   Widget _inputText() {
     return TextField(
@@ -40,6 +41,8 @@ class _ProfileState extends State<Profile> {
     return ElevatedButton(
       onPressed: () async {
         if (myController.text.isNotEmpty && _findUser) {
+          dp_service.storeDatosPersonales(_datosPersonales);
+
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Stadistcs()),
@@ -201,6 +204,10 @@ class _ProfileState extends State<Profile> {
           }
           if (snapshot.hasData) {
             this._findUser = true;
+            this._datosPersonales = snapshot.data;
+            /* setState(() {
+              this._datosPersonales = snapshot.data;
+            }); */
             return _tableData(true, snapshot.data);
           }
           return Text('No está disponible');

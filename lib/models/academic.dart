@@ -10,4 +10,10 @@ class Academic {
         json["escuela"],
         json["sit_alum"],
       );
+
+  toJson() => {
+        "nivel": nivel,
+        "escuela": escuela,
+        "sit_alum": sit_alumno,
+      };
 }

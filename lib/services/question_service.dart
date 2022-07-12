@@ -93,7 +93,7 @@ class QuestionService {
           false),
       Question(
           8,
-          "7. Durante las últimas semanas, ¿En cuántos días caminó por lo menos 10 minutos seguidos?",
+          "8. Durante las últimas semanas, ¿En cuántos días caminó por lo menos 10 minutos seguidos?",
           [
             Option(1, "Ningún día", "", false),
             Option(2, "Uno a dos días", "", false),
@@ -104,7 +104,7 @@ class QuestionService {
           false),
       Question(
           9,
-          "8. Habitualmente, ¿cuánto tiempo en total dedica a caminar a diario?",
+          "9. Habitualmente, ¿cuánto tiempo en total dedica a caminar a diario?",
           [
             Option(1, "Menos de 30 min.", "", false),
             Option(2, "30 a 60 min.", "", false),
@@ -115,7 +115,7 @@ class QuestionService {
           false),
       Question(
           10,
-          "9. Durante las últimas semanas, ¿cuánto tiempo pasó sentado(a) durante un día hábil?",
+          "10. Durante las últimas semanas, ¿cuánto tiempo pasó sentado(a) durante un día hábil?",
           [
             Option(1, "Menos de 1 hora ", "", false),
             Option(2, "1 a 3 horas", "", false),
@@ -126,7 +126,7 @@ class QuestionService {
           false),
       Question(
           11,
-          "10. ¿Realizas actividades físicas moderadas por lo menos 30 minutos diarios?",
+          "11. ¿Realizas actividades físicas moderadas por lo menos 30 minutos diarios?",
           [
             Option(1, "Si", "", false),
             Option(2, "No", "", false),
@@ -134,7 +134,7 @@ class QuestionService {
           false),
       Question(
           12,
-          "11. ¿Cuántos días a la semana realiza actividad física moderada por lo menos 30 minutos?",
+          "12. ¿Cuántos días a la semana realiza actividad física moderada por lo menos 30 minutos?",
           [
             Option(1, "Un día a la semana", "", false),
             Option(2, "De dos a tres días por semana", "", false),
@@ -144,7 +144,7 @@ class QuestionService {
           false),
       Question(
           13,
-          "12. Habitualmente ¿Cuánto tiempo dedica a realizar esa actividad física moderada?",
+          "13. Habitualmente ¿Cuánto tiempo dedica a realizar esa actividad física moderada?",
           [
             Option(1, "30 a 60 min.", "", false),
             Option(2, "60 a 90 min.", "", false),
@@ -154,7 +154,7 @@ class QuestionService {
           false),
       Question(
           14,
-          "13. ¿Realizas actividades físicas intensas por lo menos 45 minutos diarios?",
+          "14. ¿Realizas actividades físicas intensas por lo menos 45 minutos diarios?",
           [
             Option(1, "Si", "", false),
             Option(2, "No", "", false),
@@ -181,7 +181,7 @@ class QuestionService {
           false),
       Question(
           17,
-          "18. ¿Disfrutas al realizar actividad física?",
+          "17. ¿Disfrutas al realizar actividad física?",
           [
             Option(1, "Siempre", "", false),
             Option(2, "Casi siempre", "", false),
@@ -191,7 +191,7 @@ class QuestionService {
           false),
       Question(
           18,
-          "19. ¿Qué tipo de ejercicios realizas por semana?",
+          "18. ¿Qué tipo de ejercicios realizas por semana?",
           [
             Option(
                 1,

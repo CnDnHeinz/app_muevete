@@ -2,6 +2,7 @@ import 'package:app_muevete/models/option.dart';
 import 'package:app_muevete/pages/home.dart';
 import 'package:app_muevete/pages/welcome/page_one.dart';
 import 'package:app_muevete/services/question_service.dart';
+import 'package:app_muevete/services/questionary_service.dart';
 import 'package:app_muevete/utils/tema.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -16,6 +17,7 @@ class Welcome extends StatefulWidget {
 class _WelcomeState extends State<Welcome> {
   final page_controller = PageController();
   final questions = QuestionService().getAllQuestions();
+  final _questionaryService = QuestionaryService();
   bool finished = false;
 
   @override
@@ -33,7 +35,8 @@ class _WelcomeState extends State<Welcome> {
           padding: const EdgeInsets.only(bottom: 80.0),
           child: PageView(
               onPageChanged: (index) => {
-                    setState(() => {this.finished = index == (questions.length - 1) })
+                    setState(
+                        () => {this.finished = index == (questions.length - 1)})
                   },
               physics: const NeverScrollableScrollPhysics(),
               controller: page_controller,
@@ -103,12 +106,13 @@ class _WelcomeState extends State<Welcome> {
           ),
           backgroundColor: Tema().getColorPrimary(),
           minimumSize: const Size.fromHeight(80)),
-      onPressed: () => {
+      onPressed: () async {
+        _questionaryService.submitResponses(questions);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => Home(),
           ),
-        )
+        );
       },
       child: Text(
         "Finalizar",

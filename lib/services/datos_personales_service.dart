@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:app_muevete/models/academic.dart';
-import 'package:app_muevete/models/persona.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_muevete/models/datos_personales.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DatosPersonalesService {
   String url = "http://ws.unheval.edu.pe/api/v1/informacion-persona";
+  String url2 = "http://api-unheval.ale:88/api/v1/app_muevete/usuario";
   // Constructor
   DatosPersonalesService();
 
@@ -35,6 +33,30 @@ class DatosPersonalesService {
         return _response;
       } else {
         throw Exception('Failed to load personal data');
+      }
+    } catch (e) {
+      print(e);
+      return Future<DatosPersonales>(() => throw Exception(e.toString()));
+    }
+  }
+
+  Future<dynamic> storeDatosPersonales(DatosPersonales? datos) async {
+    final prefs = await SharedPreferences.getInstance();
+    final respuesta = await http.post(Uri.parse(url2),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          //'Authorization': 'Bearer ' + prefs.getString('token')
+        },
+        body: jsonEncode(datos?.toJson()));
+    try {
+      if (respuesta.statusCode == 201) {
+        //var _response = DatosPersonales.fromJson(jsonDecode(respuesta.body));
+        var _response = jsonDecode(respuesta.body);
+        prefs.setInt('id_usuario', _response['id']);
+        return respuesta.body;
+      } else {
+        print(respuesta.body);
+        throw Exception('Failed to save personal data');
       }
     } catch (e) {
       print(e);
