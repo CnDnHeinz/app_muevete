@@ -13,6 +13,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String _weight = '0';
+  String _IMC = '0';
+  String _height = '0';
+  String _perimeter = '0';
+  String _phisyc_activite = '0';
+  String _edad = '0';
+  String _nutrition = '0';
 
   final _service = new StadisticsService();
 
@@ -26,11 +32,13 @@ class _HomeState extends State<Home> {
   }
 
   _loadStats() async {
-    
-    HealthStats temp = await _service.getStadistics();
-    
+    //HealthStats temp = await _service.getStadistics();
+
     setState(() {
-      _healthStats = temp;
+      _IMC = '27.5';
+      _nutrition = '21';
+      _perimeter = '88cm';
+      _phisyc_activite = '9';
     });
   }
 
@@ -121,33 +129,41 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Widget _opcion(String title, String valor, String desc) {
-    return Container(
-        height: 20,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(title),
-            Text(
-              valor,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+  Widget _opcion(String title, String valor, String desc, String path) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, path);
+      },
+      child: Container(
+          height: 20,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                title,
+                textAlign: TextAlign.center,
               ),
-            ),
-            Text(
-              desc,
-              style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w200,
-                  color: Colors.grey),
-            )
-          ],
-        ),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-            border: Border.all(color: Colors.grey)));
+              Text(
+                valor,
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w200,
+                    color: Colors.grey),
+              )
+            ],
+          ),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              border: Border.all(color: Colors.grey))),
+    );
   }
 
   Widget _home() {
@@ -160,13 +176,15 @@ class _HomeState extends State<Home> {
           mainAxisSpacing: 20.0,
           crossAxisSpacing: 20.0,
           shrinkWrap: true,
-          crossAxisCount: 3,
+          crossAxisCount: 2,
           children: [
+            _opcion("IMC", _IMC, "SOBRE PESO", "imc"),
+            _opcion("HABITOS NUTRICIONALES", _nutrition, "POCO SALUDABLE",
+                "nutricion"),
             _opcion(
-                "IMC", (_healthStats?.weight ?? "").toString(), "SOBRE PESO"),
-            //_opcion(),
-            //_opcion(),
-            //_opcion(),
+                "PERIMETRO ABDOMINAL", _perimeter, "RIESGO BAJO", "perimetro"),
+            _opcion(
+                "ACTIVIDAD FISICA", _phisyc_activite, "MODERADO", "actividad"),
             //_opcion(),
             //_opcion(),
           ],
