@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class QuestionaryService {
-  String url = "http://api-unheval.ale:88/api/v1/app_muevete";
+  String url = "http://ws.unheval.edu.pe/api/v1/app_muevete";
 
   QuestionaryService();
 
