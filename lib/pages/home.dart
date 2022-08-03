@@ -1,3 +1,5 @@
+import 'package:app_muevete/models/health_stats.dart';
+import 'package:app_muevete/services/stadistics_service.dart';
 import 'package:app_muevete/utils/tema.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,10 +14,24 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String _weight = '0';
 
+  final _service = new StadisticsService();
+
+  HealthStats? _healthStats;
+
   @override
   void initState() {
     super.initState();
     _loadPreferences();
+    _loadStats();
+  }
+
+  _loadStats() async {
+    
+    HealthStats temp = await _service.getStadistics();
+    
+    setState(() {
+      _healthStats = temp;
+    });
   }
 
   //boton de navegacion
@@ -91,8 +107,9 @@ class _HomeState extends State<Home> {
   Widget _body() {
     return SafeArea(
       child: Column(children: <Widget>[
-        _estadisticas(),
+        //_estadisticas(),
         //_grafico(),
+        _home(),
       ]),
     );
   }
@@ -104,6 +121,60 @@ class _HomeState extends State<Home> {
     });
   }
 
+  Widget _opcion(String title, String valor, String desc) {
+    return Container(
+        height: 20,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(title),
+            Text(
+              valor,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              desc,
+              style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w200,
+                  color: Colors.grey),
+            )
+          ],
+        ),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+            border: Border.all(color: Colors.grey)));
+  }
+
+  Widget _home() {
+    return SafeArea(
+        child: Container(
+      padding: const EdgeInsets.all(20.0),
+      child: Center(
+        child: GridView.count(
+          scrollDirection: Axis.vertical,
+          mainAxisSpacing: 20.0,
+          crossAxisSpacing: 20.0,
+          shrinkWrap: true,
+          crossAxisCount: 3,
+          children: [
+            _opcion(
+                "IMC", (_healthStats?.weight ?? "").toString(), "SOBRE PESO"),
+            //_opcion(),
+            //_opcion(),
+            //_opcion(),
+            //_opcion(),
+            //_opcion(),
+          ],
+        ),
+      ),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,8 +183,8 @@ class _HomeState extends State<Home> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buttomAntion(Icons.person_rounded),
-            _buttomAntion(Icons.show_chart_rounded, true),
+            _buttomAntion(Icons.home_rounded, true),
+            _buttomAntion(Icons.show_chart_rounded),
             _buttomAntion(Icons.history_rounded),
             _buttomAntion(Icons.favorite_rounded),
             _buttomAntion(Icons.settings_rounded),

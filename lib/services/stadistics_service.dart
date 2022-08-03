@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app_muevete/models/health_stats.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,6 +33,30 @@ class StadisticsService {
     } catch (e) {
       print(e);
       return Future<dynamic>(() => throw Exception(e.toString()));
+    }
+  }
+
+  Future<HealthStats> getStadistics() async {
+    final prefs = await SharedPreferences.getInstance();
+    final respuesta = await http.get(Uri.parse(url + '/estadistica/' + prefs.getInt('id_usuario').toString()),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          //'Authorization': 'Bearer ' + prefs.getString('token')
+        });
+    try {
+      if (respuesta.statusCode == 200) {
+        var _response = HealthStats.fromJson(jsonDecode(respuesta.body));
+        //var _response = jsonDecode(respuesta.body); */
+        //return respuesta.body;
+        print(_response);
+        return _response;
+      } else {
+        print(respuesta.body);
+        throw Exception('Failed to save stadistics data');
+      }
+    } catch (e) {
+      print(e);
+      return Future<HealthStats>(() => throw Exception(e.toString()));
     }
   }
 }
