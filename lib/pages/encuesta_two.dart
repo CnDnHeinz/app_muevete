@@ -1,32 +1,26 @@
 import 'package:app_muevete/models/option.dart';
-import 'package:app_muevete/pages/encuesta_two.dart';
 import 'package:app_muevete/pages/home.dart';
 import 'package:app_muevete/pages/welcome/page_one.dart';
 import 'package:app_muevete/services/question_service.dart';
 import 'package:app_muevete/services/questionary_service.dart';
 import 'package:app_muevete/utils/tema.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class Welcome extends StatefulWidget {
-  const Welcome({Key? key}) : super(key: key);
+class EncuestaTwo extends StatefulWidget {
+  const EncuestaTwo({Key? key}) : super(key: key);
 
   @override
-  State<Welcome> createState() => _WelcomeState();
+  State<EncuestaTwo> createState() => _EncuestaTwoState();
 }
 
-class _WelcomeState extends State<Welcome> {
+class _EncuestaTwoState extends State<EncuestaTwo> {
   final page_controller = PageController();
-  final questions = QuestionService().getAllQuestions();
+  final questions = QuestionService().getQuestionsNutricion();
   final _questionaryService = QuestionaryService();
   bool finished = false;
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    page_controller.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,15 +102,15 @@ class _WelcomeState extends State<Welcome> {
           backgroundColor: Tema().getColorPrimary(),
           minimumSize: const Size.fromHeight(80)),
       onPressed: () async {
-        _questionaryService.submitResponses(questions, 1);
+        _questionaryService.submitResponses(questions, 2);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => EncuestaTwo(),
+            builder: (context) => Home(),
           ),
         );
       },
       child: Text(
-        "Continuar",
+        "Finalizar",
         style: TextStyle(
           color: Colors.white,
           fontSize: 24,

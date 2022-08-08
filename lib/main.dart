@@ -22,12 +22,12 @@ class MyApp extends StatelessWidget {
       title: 'App Muevete',
       debugShowCheckedModeBanner: false,
       theme: _themeData(),
-      home: Home(),
+      home: const Intro(),
       routes: {
-        'imc': (context) => Imc(),
-        'perimetro': (context) => Perimetro(),
-        'actividad': (context) => ActividadFisica(),
-        'nutricion': (context) => Home(),
+        'imc': (context) => const Imc(),
+        'perimetro': (context) => const Perimetro(),
+        'actividad': (context) => const ActividadFisica(),
+        'nutricion': (context) => const Home(),
         'ejercicio': (context) => Ejercicio(
             ejercicio: ModalRoute.of(context)?.settings.arguments as Exercise),
       },

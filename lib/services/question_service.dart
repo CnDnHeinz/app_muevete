@@ -220,7 +220,7 @@ class QuestionService {
     return [
       Question(
           1,
-          "1.	Actualmente, ¿sigues alguna dieta de adelgazamiento?",
+          "1. Actualmente, ¿sigues alguna dieta de adelgazamiento?",
           [
             Option(1, "Si", "", false),
             Option(2, "No", "", false),
@@ -228,7 +228,7 @@ class QuestionService {
           false),
       Question(
           2,
-          "2.	¿Cuántas veces durante el día consume alimentos?",
+          "2. ¿Cuántas veces durante el día consume alimentos?",
           [
             Option(1, "Menos de 3 veces al día", "", false),
             Option(2, "3 veces al dia", "", false),
@@ -239,7 +239,7 @@ class QuestionService {
           false),
       Question(
           3,
-          "3.	¿Cuántas veces a la semana toma desayuno? ",
+          "3. ¿Cuántas veces a la semana toma desayuno? ",
           [
             Option(1, "Nunca", "", false),
             Option(2, "1 - 2 veces a la semana", "", false),
@@ -437,7 +437,7 @@ class QuestionService {
           false),
       Question(
           21,
-          "21.	¿Cuántas veces suele consumir ensaladas de verduras? ",
+          "21. ¿Cuántas veces suele consumir ensaladas de verduras? ",
           [
             Option(1, "Nunca", "", false),
             Option(2, "1‐2 veces al mes", "", false),
@@ -448,7 +448,7 @@ class QuestionService {
           false),
       Question(
           22,
-          "22.	¿Suele agregar sal a las comidas preparadas? ",
+          "22. ¿Suele agregar sal a las comidas preparadas? ",
           [
             Option(1, "Nunca", "", false),
             Option(2, "Simpre", "", false),
@@ -457,7 +457,7 @@ class QuestionService {
           false),
       Question(
           23,
-          "23.	¿Suele agregar aceite a las comidas preparadas? ",
+          "23. ¿Suele agregar aceite a las comidas preparadas? ",
           [
             Option(1, "Ninguna ", "", false),
             Option(2, "1 cucharadita", "", false),
@@ -468,7 +468,7 @@ class QuestionService {
           false),
       Question(
           24,
-          "24.	¿Con qué frecuencia consumes alguna bebida alcohólica? ",
+          "24. ¿Con qué frecuencia consumes alguna bebida alcohólica? ",
           [
             Option(1, "Una o dos veces por semana.", "", false),
             Option(2, "Una o dos veces por mes", "", false),
@@ -478,7 +478,7 @@ class QuestionService {
           false),
       Question(
           25,
-          "25.	Cuando consumes alcohol en un día, ¿hasta cuántas bebidas sueles consumir? ",
+          "25. Cuando consumes alcohol en un día, ¿hasta cuántas bebidas sueles consumir? ",
           [
             Option(1, "Menos de una botella", "", false),
             Option(2, "De una a dos botellas", "", false),
@@ -490,7 +490,7 @@ class QuestionService {
           false),
       Question(
           26,
-          "26.	¿Consumes algún suplemento nutricional de proteínas, vitaminas o minerales? ",
+          "26. ¿Consumes algún suplemento nutricional de proteínas, vitaminas o minerales? ",
           [
             Option(1, "Si consumo", "", false),
             Option(2, "No consumo", "", false),
