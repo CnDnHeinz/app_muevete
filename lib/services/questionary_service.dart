@@ -20,16 +20,16 @@ class QuestionaryService {
   }
    */
 
-  Future<dynamic> submitResponses(data) async {
+  Future<dynamic> submitResponses(data, id_enc) async {
     final prefs = await SharedPreferences.getInstance();
     final response = await http.post(
-      Uri.parse(url + '/encuesta/1'),
+      Uri.parse(url + '/encuesta/' + id_enc.toString()),
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         //'Authorization': 'Bearer ' + prefs.getString('token')
       },
       body: jsonEncode(<String, dynamic>{
-        'id_usuario' : prefs.getInt('id_usuario'),
+        'id_usuario': prefs.getInt('id_usuario'),
         'respuestas': data
       }),
     );
@@ -39,7 +39,11 @@ class QuestionaryService {
 
         var _response = jsonDecode(response.body);
         print(_response);
-        prefs.setBool('encuesta1', true);
+        if (id_enc == 1) {
+          prefs.setBool('encuesta1', true);
+        } else if (id_enc == 2) {
+          prefs.setBool('encuesta2', true);
+        }
         return response.body;
       } else {
         print(response.body);
