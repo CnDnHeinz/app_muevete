@@ -43,7 +43,6 @@ class _NutricionState extends State<Nutricion> {
     return Expanded(
       child: Container(
         child: Accordion(
-          maxOpenSections: 5,
           disableScrolling: true,
           headerBackgroundColorOpened: Colors.black54,
           scaleWhenAnimating: true,
