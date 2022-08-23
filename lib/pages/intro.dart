@@ -23,7 +23,7 @@ class _IntroState extends State<Intro> {
 
   @override
   void initState() {
-    _getUserInfo();
+    //_getUserInfo();
     super.initState();
   }
 

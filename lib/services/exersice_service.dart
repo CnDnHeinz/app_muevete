@@ -4,7 +4,7 @@ class ExersiceService {
   List<Exercise> getEjersiciosPrimerNivel() {
     return [
       new Exercise(
-          "SENTADILLA ENLA PARED",
+          "SENTADILLA EN LA PARED",
           "Apoyar la espalda y la cabeza a la pared, separar los pies y bajar el cuerpo. Las rodillas y cadera deben formar un ángulo recto; muslos deben estar paralelos al piso",
           "1",
           'activ_fisica_lvl1_1.png',

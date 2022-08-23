@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DatosPersonalesService {
   String url = "http://ws.unheval.edu.pe/api/v1/informacion-persona";
-  String url2 = "http://api-unheval.ale:88/api/v1/app_muevete/usuario";
+  String url2 = "http://ws.unheval.edu.pe/api/v1/app_muevete/usuario";
   // Constructor
   DatosPersonalesService();
 
