@@ -7,7 +7,7 @@ import 'package:app_muevete/pages/stadistics/imc.dart';
 import 'package:app_muevete/pages/stadistics/perimetro.dart';
 import 'package:app_muevete/pages/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:ffi/ffi.dart';
+import 'dart:ffi';
 
 void main() {
   runApp(const MyApp());
