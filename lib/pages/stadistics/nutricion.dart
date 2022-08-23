@@ -43,6 +43,7 @@ class _NutricionState extends State<Nutricion> {
     return Expanded(
       child: Container(
         child: Accordion(
+          maxOpenSections: 2,
           disableScrolling: true,
           headerBackgroundColorOpened: Colors.black54,
           scaleWhenAnimating: true,
@@ -54,7 +55,7 @@ class _NutricionState extends State<Nutricion> {
           children: _comidas
               .map<AccordionSection>(
                 (e) => AccordionSection(
-                  isOpen: true,
+                  isOpen: false,
                   leftIcon: const Icon(Icons.dining_sharp, color: Colors.white),
                   header: Text(e.descripcion, style: _headerStyle),
                   content: Container(
