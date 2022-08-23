@@ -14,11 +14,11 @@ class StadisticsService {
           //'Authorization': 'Bearer ' + prefs.getString('token')
         },
         body: jsonEncode(<String, dynamic>{
-          'id_usuario' : prefs.getInt('id_usuario'),
-          'edad' : data['edad'],
-          'peso' : data['peso'],
-          'altura' : data['estatura'],
-          'perimetro' : data['perimetro'],
+          'id_usuario': prefs.getInt('id_usuario'),
+          'edad': data['edad'],
+          'peso': data['peso'],
+          'altura': data['estatura'],
+          'perimetro': data['perimetro'],
         }));
     try {
       if (respuesta.statusCode == 201) {
@@ -38,7 +38,9 @@ class StadisticsService {
 
   Future<HealthStats> getStadistics() async {
     final prefs = await SharedPreferences.getInstance();
-    final respuesta = await http.get(Uri.parse(url + '/estadistica/' + prefs.getInt('id_usuario').toString()),
+    final respuesta = await http.get(
+        Uri.parse(
+            url + '/estadistica/' + prefs.getInt('id_usuario').toString()),
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           //'Authorization': 'Bearer ' + prefs.getString('token')

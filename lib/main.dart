@@ -4,6 +4,7 @@ import 'package:app_muevete/pages/intro.dart';
 import 'package:app_muevete/pages/stadistics/actividad_fisica.dart';
 import 'package:app_muevete/pages/stadistics/ejercicio.dart';
 import 'package:app_muevete/pages/stadistics/imc.dart';
+import 'package:app_muevete/pages/stadistics/nutricion.dart';
 import 'package:app_muevete/pages/stadistics/perimetro.dart';
 import 'package:app_muevete/pages/welcome.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         'imc': (context) => const Imc(),
         'perimetro': (context) => const Perimetro(),
         'actividad': (context) => const ActividadFisica(),
-        'nutricion': (context) => const Home(),
+        'nutricion': (context) => const Nutricion(),
         'ejercicio': (context) => Ejercicio(
             ejercicio: ModalRoute.of(context)?.settings.arguments as Exercise),
       },
