@@ -1,5 +1,6 @@
 import 'package:accordion/accordion.dart';
 import 'package:accordion/controllers.dart';
+import 'package:app_muevete/components/app_button.dart';
 import 'package:app_muevete/models/eat.dart';
 import 'package:app_muevete/services/meals_service.dart';
 import 'package:app_muevete/utils/tema.dart';
@@ -296,6 +297,24 @@ class _NutricionState extends State<Nutricion> {
               children: [
                 _header(),
                 _getBody(),
+                AppButton(
+                  label: "Guardar",
+                  fontWeight: FontWeight.w600,
+                  padding: EdgeInsets.symmetric(vertical: 25),
+                  onPressed: () => showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Error interno'),
+                      content: const Text('El servidor remoto no responde'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'OK'),
+                          child: const Text('Aceptar'),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),
