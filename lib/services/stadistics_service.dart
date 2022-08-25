@@ -61,4 +61,33 @@ class StadisticsService {
       return Future<HealthStats>(() => throw Exception(e.toString()));
     }
   }
+
+  Future<dynamic> loasStats() async {
+    final prefs = await SharedPreferences.getInstance();
+    final respuesta = await http.get(
+        Uri.parse(url +
+            '/load-stats?id_usuario=' +
+            prefs.getInt('id_usuario').toString()),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          //'Authorization': 'Bearer ' + prefs.getString('token')
+        });
+    try {
+      if (respuesta.statusCode == 200) {
+        var _response = jsonDecode(respuesta.body);
+        //return respuesta.body;
+        prefs.setDouble("imc", _response["imc"]);
+        prefs.setInt("perimetro", _response["perimetro"]);
+        prefs.setInt("nutricion", _response["nutricion"]);
+        prefs.setInt("actividad_fisica", _response["actividad_fisica"]);
+        return _response;
+      } else {
+        print(respuesta.body);
+        throw Exception('Failed to save stadistics data');
+      }
+    } catch (e) {
+      print(e);
+      return Future<dynamic>(() => throw Exception(e.toString()));
+    }
+  }
 }

@@ -112,12 +112,12 @@ class _HomeState extends State<Home> {
   }
 
   // cuerpo de la pantalla
-  Widget _body() {
+  Widget _body(data) {
     return SafeArea(
       child: Column(children: <Widget>[
         //_estadisticas(),
         //_grafico(),
-        _home(),
+        _home(data),
       ]),
     );
   }
@@ -166,7 +166,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget _home() {
+  Widget _home(data) {
     return SafeArea(
         child: Container(
       padding: const EdgeInsets.all(20.0),
@@ -178,13 +178,13 @@ class _HomeState extends State<Home> {
           shrinkWrap: true,
           crossAxisCount: 2,
           children: [
-            _opcion("IMC", _IMC, "SOBRE PESO", "imc"),
-            _opcion("HABITOS NUTRICIONALES", _nutrition, "POCO SALUDABLE",
+            _opcion("IMC", data["imc"].toString(), data["diagnostico"]['imc'], "imc"),
+            _opcion("HABITOS NUTRICIONALES", data["nutricion"].toString(), data["diagnostico"]['nutricion'],
                 "nutricion"),
             _opcion(
-                "PERIMETRO ABDOMINAL", _perimeter, "RIESGO BAJO", "perimetro"),
+                "PERIMETRO ABDOMINAL", data["perimetro"].toString(), data["diagnostico"]['perimetro'], "perimetro"),
             _opcion(
-                "ACTIVIDAD FISICA", _phisyc_activite, "MODERADO", "actividad"),
+                "ACTIVIDAD FISICA", data["actividad_fisica"].toString(), data["diagnostico"]['actividad_fisica'], "actividad"),
             //_opcion(),
             //_opcion(),
           ],
@@ -195,6 +195,24 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final builder = FutureBuilder<dynamic>(
+      future: _service.loasStats(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return Center(
+            child: CircularProgressIndicator()
+          );
+        }
+        if (snapshot.hasData) {
+          return _body(snapshot.data);
+        }
+        return  Center(
+          child: Text('Servidor no está disponible')
+        );
+      },
+      
+    );
+
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         child: Row(
@@ -209,7 +227,7 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: _body(),
+      body: builder,
     );
   }
 }
