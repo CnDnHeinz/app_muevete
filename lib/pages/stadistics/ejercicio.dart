@@ -68,7 +68,9 @@ class _EjercicioState extends State<Ejercicio> {
               ),
             ),
             CronometroComponent(
-                duracion: int.parse(widget.ejercicio?.time ?? '0')),
+              duracion: int.parse(widget.ejercicio?.time ?? '0'),
+              ejercicio: widget.ejercicio,
+            ),
           ],
         ),
       ),

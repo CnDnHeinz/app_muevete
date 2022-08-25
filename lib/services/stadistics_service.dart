@@ -80,6 +80,7 @@ class StadisticsService {
         prefs.setInt("perimetro", _response["perimetro"]);
         prefs.setInt("nutricion", _response["nutricion"]);
         prefs.setInt("actividad_fisica", _response["actividad_fisica"]);
+        prefs.setInt("habito", _response["habito"]["id"]);
         return _response;
       } else {
         print(respuesta.body);

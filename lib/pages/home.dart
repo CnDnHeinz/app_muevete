@@ -178,13 +178,14 @@ class _HomeState extends State<Home> {
           shrinkWrap: true,
           crossAxisCount: 2,
           children: [
-            _opcion("IMC", data["imc"].toString(), data["diagnostico"]['imc'], "imc"),
-            _opcion("HABITOS NUTRICIONALES", data["nutricion"].toString(), data["diagnostico"]['nutricion'],
-                "nutricion"),
-            _opcion(
-                "PERIMETRO ABDOMINAL", data["perimetro"].toString(), data["diagnostico"]['perimetro'], "perimetro"),
-            _opcion(
-                "ACTIVIDAD FISICA", data["actividad_fisica"].toString(), data["diagnostico"]['actividad_fisica'], "actividad"),
+            _opcion("IMC", data["imc"].toString(), data["diagnostico"]['imc'],
+                "imc"),
+            _opcion("HABITOS NUTRICIONALES", data["nutricion"].toString(),
+                data["diagnostico"]['nutricion'], "nutricion"),
+            _opcion("PERIMETRO ABDOMINAL", data["perimetro"].toString(),
+                data["diagnostico"]['perimetro'], "perimetro"),
+            _opcion("ACTIVIDAD FISICA", data["actividad_fisica"].toString(),
+                data["diagnostico"]['actividad_fisica'], "actividad"),
             //_opcion(),
             //_opcion(),
           ],
@@ -199,18 +200,13 @@ class _HomeState extends State<Home> {
       future: _service.loasStats(),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return Center(
-            child: CircularProgressIndicator()
-          );
+          return Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasData) {
           return _body(snapshot.data);
         }
-        return  Center(
-          child: Text('Servidor no está disponible')
-        );
+        return Center(child: Text('Servidor no está disponible'));
       },
-      
     );
 
     return Scaffold(

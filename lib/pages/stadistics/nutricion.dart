@@ -1,7 +1,9 @@
 import 'package:accordion/accordion.dart';
 import 'package:accordion/controllers.dart';
+import 'package:app_muevete/components/app_acordion.dart';
 import 'package:app_muevete/components/app_button.dart';
 import 'package:app_muevete/models/eat.dart';
+import 'package:app_muevete/models/meal.dart';
 import 'package:app_muevete/services/meals_service.dart';
 import 'package:app_muevete/utils/tema.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,9 @@ class _NutricionState extends State<Nutricion> {
   final _contentStyle = const TextStyle(
       color: Color(0xff999999), fontSize: 14, fontWeight: FontWeight.normal);
 
-  final _comidas = MealService.meals;
+  List<Meal> _comidas = [];
+
+  final _service = new MealService();
 
   Widget _header() {
     return Column(
@@ -40,34 +44,41 @@ class _NutricionState extends State<Nutricion> {
     );
   }
 
-  Widget _getBody() {
-    return Expanded(
-      child: Container(
-        child: Accordion(
-          maxOpenSections: 2,
-          disableScrolling: true,
-          headerBackgroundColorOpened: Colors.black54,
-          scaleWhenAnimating: true,
-          openAndCloseAnimation: true,
-          headerPadding:
-              const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-          sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
-          sectionClosingHapticFeedback: SectionHapticFeedback.light,
-          children: _comidas
-              .map<AccordionSection>(
-                (e) => AccordionSection(
-                  isOpen: false,
-                  leftIcon: const Icon(Icons.dining_sharp, color: Colors.white),
-                  header: Text(e.descripcion, style: _headerStyle),
-                  content: Container(
-                      height: 150.0,
-                      child: ListView(children: _options(e.comidas))),
-                ),
-              )
-              .toList(),
-        ),
-      ),
+  Widget _getBody(List<Meal> data) {
+    return Accordion(
+      maxOpenSections: 3,
+      disableScrolling: true,
+      headerBackgroundColorOpened: Colors.black54,
+      scaleWhenAnimating: true,
+      openAndCloseAnimation: true,
+      headerPadding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+      sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
+      sectionClosingHapticFeedback: SectionHapticFeedback.light,
+      children: data
+          .map<AccordionSection>(
+            (e) => AccordionSection(
+              isOpen: true,
+              leftIcon: const Icon(Icons.dining_sharp, color: Colors.white),
+              header: Text(e.descripcion, style: _headerStyle),
+              content: Container(child: Column(children: _options(e.platos))),
+            ),
+          )
+          .toList(),
     );
+
+    /* return Column(
+        children: data
+            .map<AppAcordion>(
+              (e) => AppAcordion(
+                title: e.descripcion,
+                content: Container(
+                  child: Column(
+                    children: _options(e.platos),
+                  ),
+                ),
+              ),
+            )
+            .toList()); */
   }
 
   List<Widget> _options(List<Eat> options) {
@@ -78,7 +89,7 @@ class _NutricionState extends State<Nutricion> {
               child: GestureDetector(
                 onTap: () {
                   setState(() {
-                    e.selected = !e.selected;
+                    _service.storeEats(e);
                   });
                 },
                 child: Container(
@@ -89,7 +100,7 @@ class _NutricionState extends State<Nutricion> {
                         value: e.selected,
                         onChanged: (value) {
                           setState(() {
-                            e.selected = !e.selected;
+                            _service.storeEats(e);
                           });
                         },
                       ),
@@ -129,174 +140,32 @@ class _NutricionState extends State<Nutricion> {
         .toList();
   }
 
-/*  [
-         AccordionSection(
-          isOpen: true,
-          leftIcon: const Icon(Icons.insights_rounded, color: Colors.white),
-          headerBackgroundColor: Colors.black,
-          headerBackgroundColorOpened: Colors.red,
-          header: Text('Introduction', style: _headerStyle),
-          content: Text(_loremIpsum, style: _contentStyle),
-          contentHorizontalPadding: 20,
-          contentBorderWidth: 1,
-          // onOpenSection: () => print('onOpenSection ...'),
-          // onCloseSection: () => print('onCloseSection ...'),
-        ),
-        AccordionSection(
-          isOpen: true,
-          leftIcon: const Icon(Icons.compare_rounded, color: Colors.white),
-          header: Text('Nested Accordion', style: _headerStyle),
-          contentBorderColor: const Color(0xffffffff),
-          headerBackgroundColorOpened: Colors.amber,
-          content: Accordion(
-            maxOpenSections: 1,
-            headerBackgroundColorOpened: Colors.black54,
-            headerPadding:
-                const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-            children: [
-              AccordionSection(
-                isOpen: true,
-                leftIcon:
-                    const Icon(Icons.insights_rounded, color: Colors.white),
-                headerBackgroundColor: Colors.black38,
-                headerBackgroundColorOpened: Colors.black54,
-                header: Text('Nested Section #1', style: _headerStyle),
-                content: Text(_loremIpsum, style: _contentStyle),
-                contentHorizontalPadding: 20,
-                contentBorderColor: Colors.black54,
-              ),
-              AccordionSection(
-                isOpen: true,
-                leftIcon:
-                    const Icon(Icons.compare_rounded, color: Colors.white),
-                header: Text('Nested Section #2', style: _headerStyle),
-                headerBackgroundColor: Colors.black38,
-                headerBackgroundColorOpened: Colors.black54,
-                contentBorderColor: Colors.black54,
-                content: Row(
-                  children: [
-                    const Icon(Icons.compare_rounded,
-                        size: 120, color: Colors.orangeAccent),
-                    Flexible(
-                        flex: 1,
-                        child: Text(_loremIpsum, style: _contentStyle)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        AccordionSection(
-          isOpen: false,
-          leftIcon: const Icon(Icons.food_bank, color: Colors.white),
-          header: Text('Company Info', style: _headerStyle),
-          content: DataTable(
-            sortAscending: true,
-            sortColumnIndex: 1,
-            dataRowHeight: 40,
-            showBottomBorder: false,
-            columns: [
-              DataColumn(
-                  label: Text('ID', style: _contentStyleHeader), numeric: true),
-              DataColumn(
-                  label: Text('Description', style: _contentStyleHeader)),
-              DataColumn(
-                  label: Text('Price', style: _contentStyleHeader),
-                  numeric: true),
-            ],
-            rows: [
-              DataRow(
-                cells: [
-                  DataCell(Text('1',
-                      style: _contentStyle, textAlign: TextAlign.right)),
-                  DataCell(Text('Fancy Product', style: _contentStyle)),
-                  DataCell(Text(r'$ 199.99',
-                      style: _contentStyle, textAlign: TextAlign.right))
-                ],
-              ),
-              DataRow(
-                cells: [
-                  DataCell(Text('2',
-                      style: _contentStyle, textAlign: TextAlign.right)),
-                  DataCell(Text('Another Product', style: _contentStyle)),
-                  DataCell(Text(r'$ 79.00',
-                      style: _contentStyle, textAlign: TextAlign.right))
-                ],
-              ),
-              DataRow(
-                cells: [
-                  DataCell(Text('3',
-                      style: _contentStyle, textAlign: TextAlign.right)),
-                  DataCell(Text('Really Cool Stuff', style: _contentStyle)),
-                  DataCell(Text(r'$ 9.99',
-                      style: _contentStyle, textAlign: TextAlign.right))
-                ],
-              ),
-              DataRow(
-                cells: [
-                  DataCell(Text('4',
-                      style: _contentStyle, textAlign: TextAlign.right)),
-                  DataCell(
-                      Text('Last Product goes here', style: _contentStyle)),
-                  DataCell(Text(r'$ 19.99',
-                      style: _contentStyle, textAlign: TextAlign.right))
-                ],
-              ),
-            ],
-          ),
-        ),
-        AccordionSection(
-          isOpen: false,
-          leftIcon: const Icon(Icons.contact_page, color: Colors.white),
-          header: Text('Contact', style: _headerStyle),
-          content: Wrap(
-            children: List.generate(
-                30,
-                (index) => const Icon(Icons.contact_page,
-                    size: 30, color: Color(0xff999999))),
-          ),
-        ),
-        AccordionSection(
-          isOpen: false,
-          leftIcon: const Icon(Icons.computer, color: Colors.white),
-          header: Text('Jobs', style: _headerStyle),
-          content:
-              const Icon(Icons.computer, size: 200, color: Color(0xff999999)),
-        ),
-        AccordionSection(
-          isOpen: false,
-          leftIcon: const Icon(Icons.movie, color: Colors.white),
-          header: Text('Culture', style: _headerStyle),
-          content: const Icon(Icons.movie, size: 200, color: Color(0xff999999)),
-        ),
-        AccordionSection(
-          isOpen: false,
-          leftIcon: const Icon(Icons.people, color: Colors.white),
-          header: Text('Community', style: _headerStyle),
-          content:
-              const Icon(Icons.people, size: 200, color: Color(0xff999999)),
-        ),
-        AccordionSection(
-          isOpen: false,
-          leftIcon: const Icon(Icons.map, color: Colors.white),
-          header: Text('Map', style: _headerStyle),
-          content: const Icon(Icons.map, size: 200, color: Color(0xff999999)),
-        ),
-      ], */
-
   @override
   Widget build(BuildContext context) {
+    final builder = FutureBuilder<dynamic>(
+      future: _service.getMeals(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasData) {
+          return _getBody(snapshot.data);
+        }
+        return Center(child: Text('Servidor no está disponible'));
+      },
+    );
+
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Nutirción"),
+          title: const Text("Nutrición"),
         ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
+            child: ListView(
               children: [
                 _header(),
-                _getBody(),
+                builder,
                 AppButton(
                   label: "Guardar",
                   fontWeight: FontWeight.w600,
