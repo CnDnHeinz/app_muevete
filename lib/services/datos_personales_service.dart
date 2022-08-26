@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:app_muevete/utils/app_env.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_muevete/models/datos_personales.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DatosPersonalesService {
-  String url = "http://ws.unheval.edu.pe/api/v1/informacion-persona";
-  String url2 = "http://ws.unheval.edu.pe/api/v1/app_muevete/usuario";
+  String url = "${AppEnv.apiUrl}/api/v1/informacion-persona";
+  String url2 = "${AppEnv.apiUrl}/api/v1/app_muevete/usuario";
   // Constructor
   DatosPersonalesService();
 

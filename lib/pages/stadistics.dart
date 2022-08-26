@@ -1,8 +1,6 @@
 import 'package:app_muevete/models/health_stats.dart';
-import 'package:app_muevete/pages/home.dart';
 import 'package:app_muevete/pages/welcome.dart';
 import 'package:app_muevete/services/stadistics_service.dart';
-import 'package:app_muevete/utils/tema.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -223,7 +221,7 @@ class _StadistcsState extends State<Stadistcs> {
         if (_imc != 0 && _riesgo != 0) {
           final prefs = await SharedPreferences.getInstance();
           prefs.setDouble('actual_weigth', _weight);
-          _stadisticService.submitStadistics( {
+          _stadisticService.submitStadistics({
             'edad': _age,
             'estatura': _height,
             'peso': _weight,

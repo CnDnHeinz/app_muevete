@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:app_muevete/models/exercise.dart';
+import 'package:app_muevete/utils/app_env.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ExersiceService {
-  String url = "http://api-unheval.ale:88/api/v1/app_muevete";
+  String url = "${AppEnv.apiUrl}/api/v1/app_muevete";
 
   List<Exercise> getEjersiciosPrimerNivel() {
     return [

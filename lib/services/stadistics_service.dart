@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:app_muevete/models/health_stats.dart';
+import 'package:app_muevete/utils/app_env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class StadisticsService {
-  String url = "http://api-unheval.ale:88/api/v1/app_muevete";
+  String url = "${AppEnv.apiUrl}/api/v1/app_muevete";
   Future<dynamic> submitStadistics(data) async {
     final prefs = await SharedPreferences.getInstance();
     final respuesta = await http.post(Uri.parse(url + '/estadistica'),

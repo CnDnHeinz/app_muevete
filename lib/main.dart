@@ -1,5 +1,5 @@
 import 'package:app_muevete/models/exercise.dart';
-import 'package:app_muevete/pages/home.dart';
+import 'package:app_muevete/pages/home1.dart';
 import 'package:app_muevete/pages/intro.dart';
 import 'package:app_muevete/pages/stadistics/actividad_fisica.dart';
 import 'package:app_muevete/pages/stadistics/ejercicio.dart';

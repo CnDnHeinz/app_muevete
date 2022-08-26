@@ -1,4 +1,4 @@
-import 'package:app_muevete/utils/app-colors.dart';
+import 'package:app_muevete/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatefulWidget {
@@ -12,7 +12,7 @@ class AppButton extends StatefulWidget {
   const AppButton({
     Key? key,
     this.label,
-    this.roundness = 18,
+    this.roundness = 16,
     this.fontWeight = FontWeight.bold,
     this.padding = const EdgeInsets.symmetric(vertical: 24),
     this.trailingWidget,
@@ -35,19 +35,26 @@ class _AppButtonState extends State<AppButton> {
         ),
         color: AppColors.primary,
         textColor: Colors.white,
-        elevation: 0.0,
+        elevation: 10.0,
         padding: widget.padding,
         child: Stack(
           fit: StackFit.passthrough,
           children: <Widget>[
             Center(
-              child: Text(
-                widget.label ?? '',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: widget.fontWeight,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.arrow_circle_right_outlined),
+                  const SizedBox(width: 10.0),
+                  Text(
+                    widget.label ?? '',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: widget.fontWeight,
+                    ),
+                  ),
+                ],
               ),
             ),
             if (widget.trailingWidget != null)
