@@ -1,14 +1,15 @@
 import 'dart:convert';
 
+import 'package:app_muevete/utils/app_env.dart';
 import 'package:http/http.dart' as http;
 
 class UsuarioService {
   UsuarioService();
 
   Future<dynamic> checkUsuarioInfo(String query) async {
-    String url = "http://api-unheval.ale:88/api/v1/app_muevete/";
+    String url = "${AppEnv.apiUrl}/api/v1/app_muevete/";
     final respuesta = await http.get(
-      Uri.parse(url + 'usuario/info?' + query),
+      Uri.parse('$url/usuario/info?$query'),
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         //'Authorization': 'Bearer ' + prefs.getString('token')

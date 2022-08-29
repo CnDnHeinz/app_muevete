@@ -1,6 +1,5 @@
 import 'package:app_muevete/models/option.dart';
 import 'package:app_muevete/pages/encuesta_two.dart';
-import 'package:app_muevete/pages/home.dart';
 import 'package:app_muevete/pages/welcome/page_one.dart';
 import 'package:app_muevete/services/question_service.dart';
 import 'package:app_muevete/services/questionary_service.dart';

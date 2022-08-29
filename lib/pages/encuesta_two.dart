@@ -5,8 +5,6 @@ import 'package:app_muevete/services/question_service.dart';
 import 'package:app_muevete/services/questionary_service.dart';
 import 'package:app_muevete/utils/tema.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class EncuestaTwo extends StatefulWidget {
@@ -105,7 +103,7 @@ class _EncuestaTwoState extends State<EncuestaTwo> {
         _questionaryService.submitResponses(questions, 2);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => Home(),
+            builder: (context) => const Home(),
           ),
         );
       },
