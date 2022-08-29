@@ -5,11 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class QuestionaryService {
-<<<<<<< HEAD
-  String url = "http://ws.unheval.edu.pe/api/v1/app_muevete";
-=======
   String url = "${AppEnv.apiUrl}/api/v1/app_muevete";
->>>>>>> 7891c95a0528035048791916907732b54a080fa2
 
   QuestionaryService();
   Future<dynamic> submitResponses(data, id_enc) async {
