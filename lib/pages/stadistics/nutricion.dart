@@ -5,6 +5,7 @@ import 'package:app_muevete/components/app_button.dart';
 import 'package:app_muevete/models/eat.dart';
 import 'package:app_muevete/models/meal.dart';
 import 'package:app_muevete/services/meals_service.dart';
+import 'package:app_muevete/services/stadistics_service.dart';
 import 'package:app_muevete/utils/tema.dart';
 import 'package:flutter/material.dart';
 
@@ -26,19 +27,37 @@ class _NutricionState extends State<Nutricion> {
   List<Meal> _comidas = [];
 
   final _service = new MealService();
+  final _serviceStats = new StadisticsService();
 
   Widget _header() {
+    final builder = FutureBuilder<dynamic>(
+      future: _serviceStats.loasStats(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasData) {
+          return Text(
+            snapshot.data["habito"]["descripcion"],
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          );
+        }
+        return Container();
+      },
+    );
+
     return Column(
       children: [
         Center(
-          child: Text(
-            "Hábitos alimentarios poco saludables / Moderadamente activo",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
+          child: builder,
         ),
-        SizedBox(
-          height: 20,
+        const SizedBox(
+          height: 15,
+        ),
+        const Text(
+          "Fecha : 01/08/2022",
+          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -58,9 +77,12 @@ class _NutricionState extends State<Nutricion> {
           .map<AccordionSection>(
             (e) => AccordionSection(
               isOpen: true,
-              leftIcon: const Icon(Icons.dining_sharp, color: Colors.white),
+              leftIcon: Image(
+                height: 30.0,
+                image: AssetImage("assets/img/comida"+e.id.toString()+".png"),
+              ),
               header: Text(e.descripcion, style: _headerStyle),
-              content: Container(child: Column(children: _options(e.platos))),
+              content: Column(children: _options(e.platos)),
             ),
           )
           .toList(),
@@ -157,7 +179,15 @@ class _NutricionState extends State<Nutricion> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Nutrición"),
+          title: const Text("Habitos nutricionales"),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.topLeft,
+                  colors: <Color>[Colors.orange[200]!, Colors.green[800]!]),
+            ),
+          ),
         ),
         body: SafeArea(
           child: Padding(
@@ -166,7 +196,7 @@ class _NutricionState extends State<Nutricion> {
               children: [
                 _header(),
                 builder,
-                AppButton(
+                /* AppButton(
                   label: "Guardar",
                   fontWeight: FontWeight.w600,
                   padding: EdgeInsets.symmetric(vertical: 25),
@@ -183,7 +213,7 @@ class _NutricionState extends State<Nutricion> {
                       ],
                     ),
                   ),
-                )
+                ) */
               ],
             ),
           ),

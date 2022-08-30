@@ -42,6 +42,18 @@ class _EjercicioComponenteState extends State<EjercicioComponente> {
               fit: BoxFit.cover,
             ),
             Container(
+              /* color: Colors.black.withOpacity(_active ? 0.0 : 0.5), */
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.blue[800]!.withOpacity(_active ? 0.0 : 0.5), 
+                    Colors.green[800]!.withOpacity(_active ? 0.0 : 0.5),
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+                
+              ),
               child: Center(
                 child: Text(
                   widget.exercise?.name ?? '',
@@ -52,7 +64,6 @@ class _EjercicioComponenteState extends State<EjercicioComponente> {
                       color: Colors.white.withOpacity(_active ? 00 : 1.0)),
                 ),
               ),
-              color: Colors.black.withOpacity(_active ? 0.0 : 0.5),
             )
           ]),
           decoration: BoxDecoration(

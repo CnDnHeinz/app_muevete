@@ -1,3 +1,4 @@
+import 'package:app_muevete/components/app_button.dart';
 import 'package:app_muevete/models/health_stats.dart';
 import 'package:app_muevete/pages/welcome.dart';
 import 'package:app_muevete/services/stadistics_service.dart';
@@ -100,11 +101,12 @@ class _StadistcsState extends State<Stadistcs> {
     return TextField(
       controller: controller,
       textAlign: TextAlign.center,
+      maxLength: 3,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 0,
               style: BorderStyle.none,
             ),
@@ -117,58 +119,47 @@ class _StadistcsState extends State<Stadistcs> {
   }
 
   Widget _tableFormulario() {
+    double fsize = 17.0;
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Table(
-        columnWidths: {
+        columnWidths: const {
           0: FlexColumnWidth(4),
           1: FlexColumnWidth(4),
         },
         children: [
           TableRow(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Text(
-                  'Edad',
-                  style: TextStyle(fontSize: 16),
-                ),
+              Text(
+                'Edad',
+                style: TextStyle(fontSize: fsize),
               ),
               _inputText('Años', _edadController),
             ],
           ),
           TableRow(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Text(
-                  'Estatura',
-                  style: TextStyle(fontSize: 16),
-                ),
+              Text(
+                'Estatura',
+                style: TextStyle(fontSize: fsize),
               ),
               _inputText('cm', _estaturaController),
             ],
           ),
           TableRow(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Text(
-                  'Peso',
-                  style: TextStyle(fontSize: 16),
-                ),
+              Text(
+                'Peso',
+                style: TextStyle(fontSize: fsize),
               ),
               _inputText('Kg', _pesoController),
             ],
           ),
           TableRow(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Text(
-                  'Perimetro abdominal',
-                  style: TextStyle(fontSize: 16),
-                ),
+              Text(
+                'Perimetro abdominal',
+                style: TextStyle(fontSize: fsize),
               ),
               _inputText('cm', _perimetroController),
             ],
@@ -181,16 +172,14 @@ class _StadistcsState extends State<Stadistcs> {
   Widget _grafico() {
     return Padding(
         padding: const EdgeInsets.only(bottom: 20),
-        child: Column(children: [
-          Container(
-            child: Text(
-              'Indice de masa corporal',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[700]),
-            ),
+        child: Column(children: [ 
+          Text(
+            'Indice de masa corporal',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey[700]),
           ),
           progress(),
           Container(child: _getIMC()),
@@ -202,47 +191,49 @@ class _StadistcsState extends State<Stadistcs> {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: RaisedButton(
-        child: Text('Calcular'),
+        color: Colors.green[700],
+        textColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0)),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: const Text('Calcular'),
+        ),
         onPressed: () {
-          setState(() {
-            _age = int.parse(_edadController.text);
-            _height = double.parse(_estaturaController.text);
-            _weight = double.parse(_pesoController.text);
-            _perimeter = double.parse(_perimetroController.text);
-          });
+          if (_edadController.text != '' &&
+              _estaturaController.text != '' &&
+              _pesoController.text != '' &&
+              _perimetroController.text != '') {
+            setState(() {
+              _age = int.parse(_edadController.text);
+              _height = double.parse(_estaturaController.text);
+              _weight = double.parse(_pesoController.text);
+              _perimeter = double.parse(_perimetroController.text);
+            });
+          } else {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                titlePadding: const EdgeInsets.all(0.0),
+                titleTextStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                title: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10.0),
+                  decoration: BoxDecoration(color: Colors.red[900]!),
+                  child: const Text('Error'),
+                ),
+                content: const Text('Por favor ingrese los campos solicitados'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('Aceptar'),
+                  ),
+                ],
+              ),
+            );
+          }
         },
-      ),
-    );
-  }
-
-  Widget _btnContinuar(String text) {
-    return ElevatedButton(
-      onPressed: () async {
-        if (_imc != 0 && _riesgo != 0) {
-          final prefs = await SharedPreferences.getInstance();
-          prefs.setDouble('actual_weigth', _weight);
-          _stadisticService.submitStadistics({
-            'edad': _age,
-            'estatura': _height,
-            'peso': _weight,
-            'perimetro': _perimeter,
-          });
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Welcome()),
-          );
-        }
-      },
-      style: TextButton.styleFrom(
-          backgroundColor: Colors.green[800],
-          padding: const EdgeInsets.all(15),
-          minimumSize: const Size(double.infinity, 50),
-          shape: StadiumBorder()),
-      child: Text(
-        text,
-        style: TextStyle(
-            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }
@@ -251,9 +242,12 @@ class _StadistcsState extends State<Stadistcs> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Text(
-        '${_imc.toStringAsFixed(2)}',
+        _imc.toStringAsFixed(2),
         style: TextStyle(
-            fontSize: 50, fontWeight: FontWeight.bold, color: colorProgress()),
+            fontSize: 50, 
+            fontWeight: FontWeight.w900, 
+            color: colorProgress(),
+        ),
       ),
     );
   }
@@ -379,21 +373,70 @@ class _StadistcsState extends State<Stadistcs> {
               _tableFormulario(),
               _buttonCalcular(),
               _grafico(),
-              Container(height: 50.0, width: 50.0),
+              const SizedBox(height: 50.0, width: 50.0),
               _graficoRiesgo(),
-              Container(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: _btnContinuar('Continuar'),
-                  ),
-                ),
+              const SizedBox(height: 50.0, width: 50.0),
+              AppButton(
+                label: "Continuar",
+                fontWeight: FontWeight.w600,
+                onPressed: () async {
+                  if (_imc != 0 && _riesgo != 0) {
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setDouble('peso', double.parse(_pesoController.text));
+                    prefs.setDouble('estatura', double.parse(_estaturaController.text));
+                    prefs.setInt('edad', int.parse(_edadController.text));
+                    prefs.setDouble('perimetro', double.parse(_perimetroController.text));
+                    /* _stadisticService.submitStadistics({
+                      'edad': _age,
+                      'estatura': _height,
+                      'peso': _weight,
+                      'perimetro': _perimeter,
+                    }); */
+
+                    if (!mounted) return;
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Welcome()),
+                    );
+                  } else {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        titlePadding: const EdgeInsets.all(0.0),
+                        titleTextStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                        title: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 10.0),
+                          decoration: BoxDecoration(color: Colors.blue[900]!),
+                          child: const Text('Atención'),
+                        ),
+                        content: const Text(
+                            'Por favor dale tab al boton de calcular antes de continuar.'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('Aceptar'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
               ),
             ])),
       ),
       appBar: AppBar(
-        title: Text('Datos adicionales'),
+        title: const Text('Datos adicionales'),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.topLeft,
+                colors: <Color>[Colors.orange[200]!, Colors.green[800]!]),
+          ),
+        ),
       ),
     ));
   }

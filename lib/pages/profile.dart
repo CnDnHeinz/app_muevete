@@ -1,6 +1,8 @@
+import 'package:app_muevete/components/app_button.dart';
 import 'package:app_muevete/models/datos_personales.dart';
 import 'package:app_muevete/pages/stadistics.dart';
 import 'package:app_muevete/services/datos_personales_Service.dart';
+import 'package:app_muevete/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,45 +22,29 @@ class _ProfileState extends State<Profile> {
   Widget _inputText() {
     return TextField(
       keyboardType: TextInputType.number,
+      maxLength: 8,
       controller: myController,
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 0,
               style: BorderStyle.none,
             ),
           ),
           fillColor: Colors.grey[300],
           filled: true,
-          hintText: "DNI o código de estudiante",
-          prefixIcon: Icon(Icons.search, color: Colors.grey[800]),
+          hintText: "Ingrese su DNI",
+          suffixIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                dp_service.getDatosPersonales(myController.text);
+              });
+            },
+            icon: const Icon(Icons.search, color: AppColors.primary),
+            color: Colors.red,
+          ),
           isDense: true),
-    );
-  }
-
-  Widget _btnContinuar(String text) {
-    return ElevatedButton(
-      onPressed: () async {
-        if (myController.text.isNotEmpty && _findUser) {
-          dp_service.storeDatosPersonales(_datosPersonales);
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Stadistcs()),
-          );
-        }
-      },
-      style: TextButton.styleFrom(
-          backgroundColor: Colors.green[800],
-          padding: const EdgeInsets.all(15),
-          minimumSize: const Size(double.infinity, 50),
-          shape: StadiumBorder()),
-      child: Text(
-        text,
-        style: TextStyle(
-            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-      ),
     );
   }
 
@@ -92,7 +78,7 @@ class _ProfileState extends State<Profile> {
               fontWeight: FontWeight.normal,
               color: Colors.grey[800]),
           children: [
-            TextSpan(
+            const TextSpan(
               text: ' ',
             ),
             TextSpan(
@@ -150,33 +136,51 @@ class _ProfileState extends State<Profile> {
             color: Colors.grey[800]),
       ));
 
-      return Container(
-        child: Table(
-          columnWidths: {
-            0: FlexColumnWidth(2),
-            1: FlexColumnWidth(4),
-          },
-          children: [
-            TableRow(
-              children: nombre,
-            ),
-            TableRow(
-              children: apellidos,
-            ),
-            TableRow(
-              children: escuela,
-            ),
-            TableRow(
-              children: telefono,
-            ),
-            TableRow(
-              children: sexo,
-            ),
-          ],
-        ),
+      return Column(
+        children: [
+          const Image(
+            width: 150.0,
+            image: AssetImage("assets/img/logo-app.png"),
+          ),
+          const SizedBox(height: 30),
+          Table(
+            columnWidths: {
+              0: FlexColumnWidth(2),
+              1: FlexColumnWidth(4),
+            },
+            children: [
+              TableRow(
+                children: nombre,
+              ),
+              TableRow(
+                children: apellidos,
+              ),
+              TableRow(
+                children: escuela,
+              ),
+              TableRow(
+                children: telefono,
+              ),
+              TableRow(
+                children: sexo,
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Image(
+            width: 150.0,
+            image: (_getSexo(info?.inf_persona.id_sexo ?? '') == "FEMENINO")
+                ? const AssetImage("assets/img/avatar/profile_female.png")
+                : const AssetImage("assets/img/avatar/profile_male.png"),
+          ),
+        ],
       );
     } else {
-      return Expanded(child: Center(child: CircularProgressIndicator()));
+      return const Expanded(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     }
   }
 
@@ -190,54 +194,84 @@ class _ProfileState extends State<Profile> {
     }
   }
 
+  Widget _defaultScreen() {
+    return  Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        Text(
+          "No se encontró los datos personales del estudiante",
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height:20.0),
+        Image(
+          height:100.0,
+          image: AssetImage("assets/img/logo-app.png"),
+        ),
+        SizedBox(height: 20.0),
+        Image(
+          image: AssetImage("assets/img/avatar/avatar_normal.png"),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final builder = FutureBuilder<DatosPersonales>(
         future: dp_service.getDatosPersonales(myController.text),
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
           if (snapshot.hasError) {
-            this._findUser = false;
-            return Text("No se encontró los datos personales del estudiante");
+            _findUser = false;
+            return _defaultScreen();
           }
           if (snapshot.hasData) {
-            this._findUser = true;
-            this._datosPersonales = snapshot.data;
-            /* setState(() {
-              this._datosPersonales = snapshot.data;
-            }); */
+            _findUser = true;
+            _datosPersonales = snapshot.data;
             return _tableData(true, snapshot.data);
           }
-          return Text('No está disponible');
+          return const Text('No está disponible');
         });
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Datos personales'),
+          title: const Text('Datos personales'),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.topLeft,
+                  colors: <Color>[Colors.orange[200]!, Colors.green[800]!]),
+            ),
+          ),
         ),
         body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                Focus(
-                  child: _inputText(),
-                  onFocusChange: (hasFocus) {
-                    print('2:  $hasFocus');
-                    if (!hasFocus) {
-                      //print('3: ' + myController.text);
-                      setState(() {
-                        dp_service.getDatosPersonales(myController.text);
-                      });
-                    }
-                  },
-                ),
+                _inputText(),
                 Expanded(
                   child: Center(child: builder),
                 ),
-                _btnContinuar('Continuar'),
+                AppButton(
+                  label: "Continuar",
+                  fontWeight: FontWeight.w600,
+                  onPressed: () async {
+                    if (myController.text.isNotEmpty && _findUser) {
+                      dp_service.storeDatosPersonales(_datosPersonales);
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Stadistcs()),
+                      );
+                    }
+                  },
+                ),
               ],
             )),
       ),

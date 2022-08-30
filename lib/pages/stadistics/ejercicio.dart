@@ -17,7 +17,7 @@ class _EjercicioState extends State<Ejercicio> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ejercicio'),
+        title: const Text('Ejercicio'),
       ),
       body: Container(
         padding: const EdgeInsets.all(20),

@@ -1,8 +1,9 @@
-import 'package:app_muevete/components/app_nab_bar.dart';
-import 'package:app_muevete/models/app_nav_option.dart';
+import 'dart:io';
+
 import 'package:app_muevete/services/stadistics_service.dart';
-import 'package:app_muevete/utils/tema.dart';
+import 'package:app_muevete/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
@@ -180,9 +181,26 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         body: _body(),
-        bottomNavigationBar: AppNavBar(
-          items: navigatorItems,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            if (Platform.isAndroid) {
+              SystemNavigator.pop();
+            } else {
+              exit(0);
+            }
+          },
+          child: Container(
+            width: 60.0,
+            height: 60.0,
+            decoration: const BoxDecoration(
+                shape: BoxShape.circle, // circular shape
+                color: AppColors.primary),
+            child: const Icon(Icons.logout),
+          ),
         ),
+        /* bottomNavigationBar: AppNavBar(
+          items: navigatorItems,
+        ), */
       ),
     );
   }

@@ -12,7 +12,7 @@ class AppButton extends StatefulWidget {
   const AppButton({
     Key? key,
     this.label,
-    this.roundness = 16,
+    this.roundness = 50,
     this.fontWeight = FontWeight.bold,
     this.padding = const EdgeInsets.symmetric(vertical: 24),
     this.trailingWidget,
@@ -27,6 +27,54 @@ class _AppButtonState extends State<AppButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 50.0,
+      child: RaisedButton(
+        onPressed: () {
+          if (widget.onPressed != null) {
+            widget.onPressed?.call();
+          }
+        },
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
+        padding: const EdgeInsets.all(0.0),
+        textColor: Colors.white,
+        elevation: 10.0,
+        child: Ink(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.grey[800]!, Color.fromARGB(255, 120, 113, 10)],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+          child: Container(
+            width: double.maxFinite,
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.arrow_circle_right_outlined),
+                const SizedBox(width: 10.0),
+                Text(
+                  widget.label ?? '',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: widget.fontWeight,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /* @override
+  Widget build(BuildContext context) {
+    return Container(
       width: double.maxFinite,
       child: RaisedButton(
         visualDensity: VisualDensity.compact,
@@ -35,10 +83,10 @@ class _AppButtonState extends State<AppButton> {
         ),
         color: AppColors.primary,
         textColor: Colors.white,
-        elevation: 10.0,
+        elevation: 5.0,
         padding: widget.padding,
         child: Stack(
-          fit: StackFit.passthrough,
+          fit: StackFit.passthrough,          
           children: <Widget>[
             Center(
               child: Row(
@@ -72,5 +120,5 @@ class _AppButtonState extends State<AppButton> {
         },
       ),
     );
-  }
+  } */
 }

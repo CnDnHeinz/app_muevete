@@ -41,6 +41,7 @@ dependencies:
   ffi: ^2.0.1
   flutter_staggered_grid_view: ^0.6.2
   accordion: ^2.5.1
+  google_fonts: ^3.0.1
 
 
 dev_dependencies:
@@ -73,6 +74,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/img/
+    - assets/img/avatar/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

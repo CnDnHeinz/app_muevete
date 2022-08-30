@@ -27,40 +27,7 @@ class _IntroState extends State<Intro> {
 
   @override
   Widget build(BuildContext context) {
-    Widget _btnContinuar(String text) {
-      return ElevatedButton(
-        onPressed: () async {
-          final prefs = await SharedPreferences.getInstance();
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              if (prefs.getInt('id_usuario') == null) {
-                return Profile();
-              } else if (prefs.getBool('estadisticas') == null) {
-                return Stadistcs();
-              } else if (prefs.getBool('encuesta1') == null) {
-                return Welcome();
-              } else if (prefs.getBool('encuesta2') == null) {
-                return EncuestaTwo();
-              } else {
-                return Home();
-              }
-            }),
-          );
-        },
-        style: TextButton.styleFrom(
-            backgroundColor: Colors.green[800],
-            padding: const EdgeInsets.all(15),
-            minimumSize: const Size(double.infinity, 50),
-            shape: StadiumBorder()),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      );
-    }
-
+    
     Widget _slogan() {
       return Container(
         child: Column(
@@ -98,7 +65,7 @@ class _IntroState extends State<Intro> {
                       color: Colors.grey[100]),
                   children: [
                     TextSpan(
-                      text: ' alimentacion saludable y actividad física ',
+                      text: ' alimentación saludable y actividad física ',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -136,11 +103,11 @@ class _IntroState extends State<Intro> {
             children: [
               const Spacer(),
               Container(
-                child: Image(
+                padding: const EdgeInsets.symmetric(vertical: 40),
+                child: const Image(
                   image: AssetImage('assets/img/logo-app.png'),
                   width: 200,
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 40),
+                ),                
               ),
               _slogan(),
               const SizedBox(
@@ -152,19 +119,22 @@ class _IntroState extends State<Intro> {
                 padding: const EdgeInsets.symmetric(vertical: 25),
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
+
+                  if (!mounted) return;
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
                       if (prefs.getInt('id_usuario') == null) {
-                        return Profile();
+                        return const Profile();
                       } else if (prefs.getBool('estadisticas') == null) {
-                        return Stadistcs();
+                        return const Stadistcs();
                       } else if (prefs.getBool('encuesta1') == null) {
-                        return Welcome();
+                        return const Welcome();
                       } else if (prefs.getBool('encuesta2') == null) {
-                        return EncuestaTwo();
+                        return const EncuestaTwo();
                       } else {
-                        return Home();
+                        //return const Stadistcs();
+                        return const Home();
                       }
                     }),
                   );

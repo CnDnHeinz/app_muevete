@@ -41,7 +41,15 @@ class _ActividadFisicaState extends State<ActividadFisica>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Actividad Física'),
+        title: const Text('Actividad Física'),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.topLeft,
+                colors: <Color>[Colors.orange[200]!, Colors.green[800]!]),
+          ),
+        ),
       ),
       body: Container(
         padding: const EdgeInsets.all(20),

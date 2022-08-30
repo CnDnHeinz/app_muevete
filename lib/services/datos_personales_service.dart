@@ -31,8 +31,11 @@ class DatosPersonalesService {
         prefs.setString('telefono', _response.inf_persona.telefono);
         prefs.setString('id_sexo', _response.inf_persona.id_sexo);
 
+        
+
         return _response;
       } else {
+        print(respuesta.body);
         throw Exception('Failed to load personal data');
       }
     } catch (e) {
