@@ -62,6 +62,17 @@ class _NutricionState extends State<Nutricion> {
           "Fecha : ${_today.day.toString()}/${_today.month.toString()}/${_today.year.toString()}",
           textAlign: TextAlign.center,
         ),
+        const SizedBox(
+          height: 15,
+        ),
+        Text(
+          "Los datos de guardan automaticamente al seleccionar.",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 10.0,
+            color: Colors.grey[700]!,
+          ),
+        ),
       ],
     );
   }

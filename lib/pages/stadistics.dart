@@ -158,7 +158,7 @@ class _StadistcsState extends State<Stadistcs> {
           TableRow(
             children: [
               Text(
-                'Perimetro abdominal',
+                'Perímetro abdominal',
                 style: TextStyle(fontSize: fsize),
               ),
               _inputText('cm', _perimetroController),
@@ -172,7 +172,7 @@ class _StadistcsState extends State<Stadistcs> {
   Widget _grafico() {
     return Padding(
         padding: const EdgeInsets.only(bottom: 20),
-        child: Column(children: [ 
+        child: Column(children: [
           Text(
             'Indice de masa corporal',
             textAlign: TextAlign.left,
@@ -244,9 +244,9 @@ class _StadistcsState extends State<Stadistcs> {
       child: Text(
         _imc.toStringAsFixed(2),
         style: TextStyle(
-            fontSize: 50, 
-            fontWeight: FontWeight.w900, 
-            color: colorProgress(),
+          fontSize: 50,
+          fontWeight: FontWeight.w900,
+          color: colorProgress(),
         ),
       ),
     );
@@ -295,7 +295,7 @@ class _StadistcsState extends State<Stadistcs> {
         child: Column(children: [
           Container(
             child: Text(
-              'Clasificación de riesgo (en base al sexo y perimetro abdominal)',
+              'Clasificación de riesgo (en base al sexo y perímetro abdominal)',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 18,
@@ -383,15 +383,17 @@ class _StadistcsState extends State<Stadistcs> {
                   if (_imc != 0 && _riesgo != 0) {
                     final prefs = await SharedPreferences.getInstance();
                     prefs.setDouble('peso', double.parse(_pesoController.text));
-                    prefs.setDouble('estatura', double.parse(_estaturaController.text));
+                    prefs.setDouble(
+                        'estatura', double.parse(_estaturaController.text));
                     prefs.setInt('edad', int.parse(_edadController.text));
-                    prefs.setDouble('perimetro', double.parse(_perimetroController.text));
-                    /* _stadisticService.submitStadistics({
+                    prefs.setDouble(
+                        'perimetro', double.parse(_perimetroController.text));
+                    _stadisticService.submitStadistics({
                       'edad': _age,
                       'estatura': _height,
                       'peso': _weight,
                       'perimetro': _perimeter,
-                    }); */
+                    });
 
                     if (!mounted) return;
                     Navigator.push(
