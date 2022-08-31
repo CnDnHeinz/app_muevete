@@ -13,6 +13,8 @@ class Ejercicio extends StatefulWidget {
 }
 
 class _EjercicioState extends State<Ejercicio> {
+  final _today = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,31 +25,38 @@ class _EjercicioState extends State<Ejercicio> {
         padding: const EdgeInsets.all(20),
         child: ListView(
           children: <Widget>[
+            Text(
+              "Fecha : ${_today.day.toString()}/${_today.month.toString()}/${_today.year.toString()}",
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
             Container(
+              height: 200,
               child: Image(
                 image: AssetImage('assets/img/' +
                     (widget.ejercicio?.image ?? 'logo-app.png')),
               ),
-              height: 200,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
               widget.ejercicio?.name ?? '',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: Colors.green),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
               widget.ejercicio?.description ?? '',
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Text.rich(
