@@ -6,6 +6,7 @@ import 'package:app_muevete/models/eat.dart';
 import 'package:app_muevete/models/meal.dart';
 import 'package:app_muevete/services/meals_service.dart';
 import 'package:app_muevete/services/stadistics_service.dart';
+import 'package:app_muevete/utils/app_colors.dart';
 import 'package:app_muevete/utils/tema.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,8 @@ class _NutricionState extends State<Nutricion> {
 
   final _service = new MealService();
   final _serviceStats = new StadisticsService();
+
+  final _today = DateTime.now();
 
   Widget _header() {
     final builder = FutureBuilder<dynamic>(
@@ -55,8 +58,8 @@ class _NutricionState extends State<Nutricion> {
         const SizedBox(
           height: 15,
         ),
-        const Text(
-          "Fecha : 01/08/2022",
+        Text(
+          "Fecha : ${_today.day.toString()}/${_today.month.toString()}/${_today.year.toString()}",
           textAlign: TextAlign.center,
         ),
       ],
@@ -67,7 +70,7 @@ class _NutricionState extends State<Nutricion> {
     return Accordion(
       maxOpenSections: 3,
       disableScrolling: true,
-      headerBackgroundColorOpened: Colors.black54,
+      headerBackgroundColorOpened: AppColors.primary,
       scaleWhenAnimating: true,
       openAndCloseAnimation: true,
       headerPadding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
@@ -79,7 +82,8 @@ class _NutricionState extends State<Nutricion> {
               isOpen: true,
               leftIcon: Image(
                 height: 30.0,
-                image: AssetImage("assets/img/comida"+e.id.toString()+".png"),
+                image:
+                    AssetImage("assets/img/comida" + e.id.toString() + ".png"),
               ),
               header: Text(e.descripcion, style: _headerStyle),
               content: Column(children: _options(e.platos)),

@@ -27,7 +27,6 @@ class _IntroState extends State<Intro> {
 
   @override
   Widget build(BuildContext context) {
-    
     Widget _slogan() {
       return Container(
         child: Column(
@@ -44,7 +43,7 @@ class _IntroState extends State<Intro> {
                   ),
                   children: [
                     TextSpan(
-                      text: '"Come sano y muevete"',
+                      text: '"Come sano y muévete"',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -107,7 +106,7 @@ class _IntroState extends State<Intro> {
                 child: const Image(
                   image: AssetImage('assets/img/logo-app.png'),
                   width: 200,
-                ),                
+                ),
               ),
               _slogan(),
               const SizedBox(
