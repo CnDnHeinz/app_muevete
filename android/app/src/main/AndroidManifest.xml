@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.app_muevete">
+    package="edu.unheval.app_muevete">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="app_muevete"
