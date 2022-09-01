@@ -143,7 +143,7 @@ class _StadistcsState extends State<Stadistcs> {
                 'Estatura',
                 style: TextStyle(fontSize: fsize),
               ),
-              _inputText('cm', _estaturaController, 3),
+              _inputText('cm', _estaturaController, 4),
             ],
           ),
           TableRow(
@@ -161,7 +161,7 @@ class _StadistcsState extends State<Stadistcs> {
                 'Perímetro abdominal',
                 style: TextStyle(fontSize: fsize),
               ),
-              _inputText('cm', _perimetroController, 3),
+              _inputText('cm', _perimetroController, 4),
             ],
           ),
         ],
