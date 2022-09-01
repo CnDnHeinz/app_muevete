@@ -97,11 +97,11 @@ class _StadistcsState extends State<Stadistcs> {
 
   //Partes de la aplicación
 
-  Widget _inputText(placeholder, controller) {
+  Widget _inputText(placeholder, controller, tamanio) {
     return TextField(
       controller: controller,
       textAlign: TextAlign.center,
-      maxLength: 3,
+      maxLength: tamanio,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
           border: OutlineInputBorder(
@@ -134,7 +134,7 @@ class _StadistcsState extends State<Stadistcs> {
                 'Edad',
                 style: TextStyle(fontSize: fsize),
               ),
-              _inputText('Años', _edadController),
+              _inputText('Años', _edadController, 2),
             ],
           ),
           TableRow(
@@ -143,7 +143,7 @@ class _StadistcsState extends State<Stadistcs> {
                 'Estatura',
                 style: TextStyle(fontSize: fsize),
               ),
-              _inputText('cm', _estaturaController),
+              _inputText('cm', _estaturaController, 3),
             ],
           ),
           TableRow(
@@ -152,7 +152,7 @@ class _StadistcsState extends State<Stadistcs> {
                 'Peso',
                 style: TextStyle(fontSize: fsize),
               ),
-              _inputText('Kg', _pesoController),
+              _inputText('Kg', _pesoController, 4),
             ],
           ),
           TableRow(
@@ -161,7 +161,7 @@ class _StadistcsState extends State<Stadistcs> {
                 'Perímetro abdominal',
                 style: TextStyle(fontSize: fsize),
               ),
-              _inputText('cm', _perimetroController),
+              _inputText('cm', _perimetroController, 3),
             ],
           ),
         ],

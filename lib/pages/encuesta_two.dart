@@ -81,14 +81,28 @@ class _EncuestaTwoState extends State<EncuestaTwo> {
           TextButton(
             child: Text("SIGUIENTE",
                 style: TextStyle(color: Tema().getColorPrimary())),
-            onPressed: () => page_controller.nextPage(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            ),
+            onPressed: () {
+              if (_recorrerOPtions()) {
+                page_controller.nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              }
+            },
           ),
         ],
       ),
     );
+  }
+
+  bool _recorrerOPtions() {
+    List<Option> op = questions[page_controller.page!.toInt()].options;
+    for (var el in op) {
+      if (el.selected) {
+        return el.selected;
+      }
+    }
+    return false;
   }
 
   Widget _finishButton() {

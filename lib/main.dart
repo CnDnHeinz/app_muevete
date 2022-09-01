@@ -41,8 +41,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-ThemeData _themeData(textTheme) {
-  
+ThemeData _themeData(textTheme) {  
   return ThemeData(
     primarySwatch: Colors.green,
     textTheme: GoogleFonts.montserratTextTheme(textTheme),
