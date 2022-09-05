@@ -132,7 +132,7 @@ class _IntroState extends State<Intro> {
                       } else if (prefs.getBool('encuesta2') == null) {
                         return const EncuestaTwo();
                       } else {
-                        //return const Stadistcs();
+                        //return const Welcome();
                         return const Home();
                       }
                     }),

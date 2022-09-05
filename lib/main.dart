@@ -5,10 +5,7 @@ import 'package:app_muevete/pages/stadistics/ejercicio.dart';
 import 'package:app_muevete/pages/stadistics/imc.dart';
 import 'package:app_muevete/pages/stadistics/nutricion.dart';
 import 'package:app_muevete/pages/stadistics/perimetro.dart';
-import 'package:app_muevete/pages/welcome.dart';
 import 'package:flutter/material.dart';
-import 'dart:ffi';
-
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -21,7 +18,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     final textTheme = Theme.of(context).textTheme;
 
     return MaterialApp(
@@ -42,7 +38,6 @@ class MyApp extends StatelessWidget {
 }
 
 ThemeData _themeData(textTheme) {
-  
   return ThemeData(
     primarySwatch: Colors.green,
     textTheme: GoogleFonts.montserratTextTheme(textTheme),
