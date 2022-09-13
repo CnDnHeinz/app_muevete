@@ -109,6 +109,33 @@ class ExersiceService {
     ];
   }
 
+  Future<List<Exercise>> getEjercicios() async {
+    final prefs = await SharedPreferences.getInstance();
+    final respuesta = await http.get(
+      Uri.parse(
+          '$url/ejercicios/show?id_usuario=${prefs.getInt("id_usuario").toString()}'),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        //'Authorization': 'Bearer ' + prefs.getString('token')
+      },
+    );
+
+    try {
+      if (respuesta.statusCode == 200) {
+        //print(respuesta.body);
+        var resp = jsonDecode(respuesta.body);
+        //print(resp);
+        return List<Exercise>.from(resp.map((x) => Exercise.fromJson(x)));
+      } else {
+        //print(respuesta.body);
+        throw Exception('Failed to load exercice data');
+      }
+    } catch (e) {
+      print(e);
+      return Future<List<Exercise>>(() => throw Exception(e.toString()));
+    }
+  }
+
   Future<dynamic> storeExercises(dynamic data) async {
     final prefs = await SharedPreferences.getInstance();
     final response = await http.post(

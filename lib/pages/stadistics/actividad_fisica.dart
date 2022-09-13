@@ -1,11 +1,8 @@
 import 'package:app_muevete/components/ejercicio_componente.dart';
 import 'package:app_muevete/models/exercise.dart';
 import 'package:app_muevete/services/exersice_service.dart';
+import 'package:app_muevete/utils/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/animation/animation_controller.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/ticker_provider.dart';
 
 class ActividadFisica extends StatefulWidget {
   const ActividadFisica({Key? key}) : super(key: key);
@@ -33,12 +30,43 @@ class _ActividadFisicaState extends State<ActividadFisica>
     _controller.dispose();
   }
 
-  List<Widget> generateEjercicios() {
-    return ejercicios.map((e) => EjercicioComponente(exercise: e)).toList();
+  List<Widget> generateEjercicios(List<Exercise> ex) {
+    return ex.map((e) => EjercicioComponente(exercise: e)).toList();
   }
 
   @override
   Widget build(BuildContext context) {
+    final builder = FutureBuilder<dynamic>(
+      future: _exerciseService.getEjercicios(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (snapshot.hasData) {
+          return ListView(
+            children: [
+              ...[
+                Text(
+                  'NIVEL ${snapshot.data[0].level}',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0),
+                )
+              ],
+              ...generateEjercicios(snapshot.data)
+            ],
+          );
+        }
+        return const Center(
+          child: Text('Servidor no está disponible'),
+        );
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Actividad Física'),
@@ -53,9 +81,7 @@ class _ActividadFisicaState extends State<ActividadFisica>
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: ListView(
-          children: generateEjercicios(),
-        ),
+        child: builder,
       ),
     );
   }
