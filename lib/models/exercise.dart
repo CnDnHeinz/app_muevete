@@ -26,15 +26,15 @@ class Exercise {
 
   factory Exercise.fromJson(Map<String, dynamic> json) => new Exercise(
         json["id"],
-        json["name"],
-        json["description"],
-        json["time"],
-        json["image"],
-        json["video"],
-        json["audio"],
-        json["level"],
-        json["type"],
-        json["category"],
-        json["author"],
+        json["name"] ?? '',
+        json["description"] ?? '',
+        json["time"] ?? '',
+        json["image"] ?? '',
+        json["video"] ?? '',
+        json["audio"] ?? '',
+        json["level"] ?? '',
+        json["type"] ?? '',
+        json["category"] ?? '',
+        json["author"] ?? '',
       );
 }
