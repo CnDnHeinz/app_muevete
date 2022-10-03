@@ -90,7 +90,7 @@ class _NutricionState extends State<Nutricion> {
       children: data
           .map<AccordionSection>(
             (e) => AccordionSection(
-              isOpen: true,
+              isOpen: false,
               leftIcon: Image(
                 height: 30.0,
                 image:
@@ -125,9 +125,9 @@ class _NutricionState extends State<Nutricion> {
                   const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
+                  /* setState(() {
                     _service.storeEats(e);
-                  });
+                  }); */
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
