@@ -38,7 +38,7 @@ class MealService {
     }
   }
 
-  Future<dynamic> storeEats(Eat comida) async {
+  Future<dynamic> storeEat(Eat comida) async {
     final prefs = await SharedPreferences.getInstance();
     final response = await http.post(
       Uri.parse(url + '/comidas/store'),
@@ -64,6 +64,34 @@ class MealService {
       }
     } catch (e) {
       print(e);
+      return Future<dynamic>(() => throw Exception(e.toString()));
+    }
+  }
+
+  Future<dynamic> storeEats(List<Meal> data) async {
+    final prefs = await SharedPreferences.getInstance();
+    final response = await http.post(
+      Uri.parse(url + '/comidas/store'),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        //'Authorization': 'Bearer ' + prefs.getString('token')
+      },
+      body: jsonEncode(<String, dynamic>{
+        'id_usuario': prefs.getInt('id_usuario'),
+        'comidas': data.map((e) => e.toJson()).toList()
+      }),
+    );
+    try {
+      if (response.statusCode == 201) {
+        //var _response = DatosPersonales.fromJson(jsonDecode(respuesta.body));
+        /* print(jsonDecode(response.body)); */
+        return jsonDecode(response.body);
+      } else {
+        //print(response.body);
+        throw Exception('Failed to save eats data');
+      }
+    } catch (e) {
+      //print(e);
       return Future<dynamic>(() => throw Exception(e.toString()));
     }
   }

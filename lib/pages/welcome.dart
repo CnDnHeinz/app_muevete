@@ -28,6 +28,11 @@ class _WelcomeState extends State<Welcome> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -128,7 +133,7 @@ class _WelcomeState extends State<Welcome> {
           ),
         );
       },
-      child: Text(
+      child: const Text(
         "Continuar",
         style: TextStyle(
           color: Colors.white,

@@ -7,4 +7,6 @@ class Eat {
 
   factory Eat.fromJson(Map<String, dynamic> json) =>
       Eat(json["id"], json["descripcion"], json["selected"]);
+
+  toJson() => {'id': id, 'descripcion': descripcion, 'selected': selected};
 }
