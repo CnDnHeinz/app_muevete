@@ -29,14 +29,14 @@ class _HomeState extends State<Home> {
       title: "ALIMENTACIÓN SALUDABLE",
       body: "No olvides de cumplir diariamente con los hábitos nutricionales.",
       payload: "app_muevete.nutricion",
-      scheduleDate: const Time(9, 30),
+      scheduleDate: const Time(17),
     );
 
     NotificationsApi.showScheduleNotification(
       title: "ACTIVIDAD FÍSICA",
       body: "No olvides de cumplir diariamente con las actividades físicas.",
       payload: "app_muevete.actividad_fisica",
-      scheduleDate: const Time(17, 30),
+      scheduleDate: const Time(9),
     );
   }
 
