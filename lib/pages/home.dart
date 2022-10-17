@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:app_muevete/api/notifications_api.dart';
+import 'package:app_muevete/pages/stadistics/nutricion.dart';
 import 'package:app_muevete/services/stadistics_service.dart';
 import 'package:app_muevete/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
@@ -15,6 +18,32 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final _service = new StadisticsService();
+
+  @override
+  void initState() {
+    super.initState();
+    NotificationsApi.init(initSchedule: true);
+    listenNotification();
+
+    NotificationsApi.showScheduleNotification(
+      title: "ALIMENTACIÓN SALUDABLE",
+      body: "No olvides de cumplir diariamente con los hábitos nutricionales.",
+      payload: "app_muevete.nutricion",
+      scheduleDate: const Time(17),
+    );
+
+    NotificationsApi.showScheduleNotification(
+      title: "ACTIVIDAD FÍSICA",
+      body: "No olvides de cumplir diariamente con las actividades físicas.",
+      payload: "app_muevete.actividad_fisica",
+      scheduleDate: const Time(9),
+    );
+  }
+
+  void listenNotification() =>
+      NotificationsApi.onNotifications.listen(onClickedNotification);
+  void onClickedNotification(String? payload) => Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => const Nutricion()));
 
   Future<String> getUsuario() async {
     final prefs = await SharedPreferences.getInstance();

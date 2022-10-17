@@ -34,12 +34,13 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33 //compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true //Para notificaciones
     }
 
     kotlinOptions {
@@ -71,6 +72,9 @@ android {
             storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties['storePassword']
         }
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true //Para notificaciones
     }
 
     buildTypes {
@@ -88,4 +92,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.1.1" // Añadido para notificaciones
 }
