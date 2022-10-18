@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '3'
+    flutterVersionCode = '4'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0.3'
+    flutterVersionName = '1.0.4'
 }
 
 apply plugin: 'com.android.application'
@@ -58,11 +58,12 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 3
-        versionName "1.0.3"
+        versionCode 4
+        versionName "1.0.4"
 
         minSdkVersion 16
         targetSdkVersion 33
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -72,9 +73,9 @@ android {
             storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties['storePassword']
         }
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
-        multiDexEnabled true //Para notificaciones
+        //versionCode flutterVersionCode.toInteger()
+        //versionName flutterVersionName
+        //multiDexEnabled true //Para notificaciones
     }
 
     buildTypes {
