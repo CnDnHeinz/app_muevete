@@ -22,16 +22,16 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    NotificationsApi.init(initSchedule: true);
-    listenNotification();
+    /* NotificationsApi.init(initSchedule: true); */
+    //listenNotification();
 
-    NotificationsApi.showScheduleNotification(
+    /* NotificationsApi.showScheduleNotification(
       title: "ALIMENTACIÓN SALUDABLE",
       body: "No olvides de cumplir diariamente con los hábitos nutricionales.",
       payload: "app_muevete.nutricion",
       scheduleDate: const Time(8, 25),
     );
-
+ */
     /* NotificationsApi.showScheduleNotification(
       title: "ACTIVIDAD FÍSICA",
       body: "No olvides de cumplir diariamente con las actividades físicas.",
