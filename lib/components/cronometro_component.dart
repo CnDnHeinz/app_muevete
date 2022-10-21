@@ -33,7 +33,7 @@ class _CronometroComponentState extends State<CronometroComponent> {
           milisec += 100;
         });
 
-        if (new Duration(milliseconds: milisec).inMinutes == widget.duracion) {
+        if (new Duration(milliseconds: milisec).inSeconds == widget.duracion) {
           t.cancel();
           finished = true;
 

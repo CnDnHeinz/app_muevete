@@ -60,6 +60,26 @@ class _EjercicioState extends State<Ejercicio> {
               widget.ejercicio?.description ?? '',
             ),
             const SizedBox(
+              height: 20,
+            ),
+            Column(children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(
+                    '► Marchar ${widget.ejercicio!.level == '1' ? '20' : '30'} minutos sobre su sitio, antes y despues de los ejercicio.s'),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(
+                    '► Realizar ${widget.ejercicio!.level == '3' ? '4' : '3'} series x ${widget.ejercicio!.level == '1' ? '20' : '30'} segundos cada ejercicios.'),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(
+                    '► Descanzar ${widget.ejercicio!.level == '1' ? '20' : '30'} segundos de ejercicio a ajercicio 1 un minuto de serie a serie.'),
+              ),
+            ]),
+            const SizedBox(
               height: 40,
             ),
             Text.rich(
@@ -73,7 +93,7 @@ class _EjercicioState extends State<Ejercicio> {
                         color: Colors.grey[800]),
                   ),
                   TextSpan(
-                    text: '${widget.ejercicio?.time ?? '0'}' + ' min',
+                    text: '${widget.ejercicio?.time ?? '0'}' + ' sec',
                     style: TextStyle(fontSize: 15),
                   )
                 ],
