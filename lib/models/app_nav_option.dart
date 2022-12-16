@@ -8,9 +8,9 @@ class AppNavOption {
 }
 
 List<AppNavOption> navigatorItems = [
-  AppNavOption(Icons.home, "", false),
+  //AppNavOption(Icons.home, "", false),
   AppNavOption(Icons.bar_chart_outlined, "", false),
-  AppNavOption(Icons.directions_run_rounded, "", true),
-  AppNavOption(Icons.dining, "", false),
-  AppNavOption(Icons.logout, "", false),
+  //AppNavOption(Icons.directions_run_rounded, "", true),
+  //AppNavOption(Icons.dining, "", false),
+  //AppNavOption(Icons.logout, "", false),
 ];

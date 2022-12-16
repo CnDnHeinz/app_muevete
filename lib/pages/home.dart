@@ -1,6 +1,10 @@
 import 'dart:io';
 
 import 'package:app_muevete/api/notifications_api.dart';
+import 'package:app_muevete/components/app_nab_bar.dart';
+import 'package:app_muevete/models/app_nav_option.dart';
+import 'package:app_muevete/pages/home/update-stats.dart';
+import 'package:app_muevete/pages/stadistics.dart';
 import 'package:app_muevete/pages/stadistics/nutricion.dart';
 import 'package:app_muevete/services/stadistics_service.dart';
 import 'package:app_muevete/utils/app_colors.dart';
@@ -210,6 +214,7 @@ class _HomeState extends State<Home> {
     return SafeArea(
       child: Scaffold(
         body: _body(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             if (Platform.isAndroid) {
@@ -227,9 +232,29 @@ class _HomeState extends State<Home> {
             child: const Icon(Icons.logout),
           ),
         ),
-        /* bottomNavigationBar: AppNavBar(
-          items: navigatorItems,
-        ), */
+        bottomNavigationBar: BottomAppBar(
+          notchMargin: 5.0,
+          shape: const CircularNotchedRectangle(),
+          color: AppColors.primary,
+          child: Row(
+            children: [
+              IconButton(
+                padding: const EdgeInsets.all(15.0),
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const UpdateStats(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.bar_chart_outlined,
+                  color: Colors.white,
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
